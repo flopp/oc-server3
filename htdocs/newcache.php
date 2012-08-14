@@ -70,6 +70,10 @@
 			tpl_set_var('size_message', '');
 			tpl_set_var('type_message', '');
 			tpl_set_var('diff_message', '');
+			tpl_set_var('gcwpt_not_ok_message', '');
+			tpl_set_var('ncwpt_not_ok_message', '');
+			tpl_set_var('short_desc_empty_message', '');
+			tpl_set_var('desc_empty_message', '');
 
 			$sel_type = isset($_POST['type']) ? $_POST['type'] : 0;
 			if (!isset($_POST['size']))
@@ -787,8 +791,41 @@
 					$diff_not_ok = true;
 				}
 
+				// GC and NC waypoints
+				$gcwpt_not_ok = false;
+				if ($wp_gc != "" && !mb_ereg_match('^[Gg][Cc][0-9A-Za-z]{1-6}$', $wp_gc))
+				{
+					tpl_set_var('gcwpt_not_ok_message', $gcwpt_not_ok_message );
+					$error = true;
+					$gcwpt_not_ok = true;
+				}
+				$ncwpt_not_ok = false;
+				if ($wp_nc != "" && !mb_ereg_match('^[Nn][0-9A-Za-z]{1,6}$', $wp_nc))
+				{
+					tpl_set_var('ncwpt_not_ok_message', $ncwpt_not_ok_message );
+					$error = true;
+					$ncwpt_not_ok = true;
+				}
+
+				// check if descriptions are empty
+				$short_desc_empty = false;
+				if ($desc == "" )
+				{
+					tpl_set_var('short_desc_empty_message', $short_desc_empty_message );
+					$error = true;
+					$short_desc_empty = true;
+				}
+				$desc_empty = false;
+				if ($desc == "" )
+				{
+					tpl_set_var('desc_empty_message', $desc_empty_message );
+					$error = true;
+					$desc_empty = true;
+				}
+
+				
 				//no errors?
-				if (!($tos_not_ok || $name_not_ok || $hidden_date_not_ok || $activation_date_not_ok || $lon_not_ok || $lat_not_ok || $desc_html_not_ok || $time_not_ok || $way_length_not_ok || $size_not_ok || $type_not_ok || $diff_not_ok))
+				if (!($tos_not_ok || $name_not_ok || $hidden_date_not_ok || $activation_date_not_ok || $lon_not_ok || $lat_not_ok || $desc_html_not_ok || $time_not_ok || $way_length_not_ok || $size_not_ok || $type_not_ok || $diff_not_ok || $gcwpt_not_ok || $ncwpt_not_ok || $short_desc_empty || $desc_empty))
 				{
 					//sel_status
 					$now = getdate();
@@ -909,7 +946,7 @@
 													`id`,
 													`cache_id`,
 													`language`,
-													`desc`,
+												`desc`,
 													`desc_html`,
 													`hint`,
 													`short_desc`,
