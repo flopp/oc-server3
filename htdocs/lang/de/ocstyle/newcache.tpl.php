@@ -61,6 +61,8 @@
              type_message
              size_message
              diff_message
+             gcwpt_not_ok_message
+             ncwpt_not_ok_message
 
  ****************************************************************************/
 ?>
@@ -235,6 +237,8 @@ function toggleAttr(id)
 			navicache.com: <input type="text" name="wp_nc" value="{wp_nc}" maxlength="6" class="input50">
 		</td>
 	</tr>
+{gcwpt_not_ok_message}
+{ncwpt_not_ok_message}
 	<tr>
 		<td>&nbsp;</td>
 		<td class="help"><img src="lang/de/ocstyle/images/misc/hint.gif" border="0" width="15" height="11" alt="{t}Notice{/t}" title="{t}Notice{/t}">
@@ -242,6 +246,7 @@ function toggleAttr(id)
 		{t}No data will be imported automatically from these listing services.{/t}
 		</td>
 	</tr>
+
 	<tr><td class="spacer" colspan="2">&nbsp;</td></tr>
 	<tr>
 		<td class="header-small" colspan="2">
@@ -288,11 +293,13 @@ function toggleAttr(id)
 		<td>{t}Short description:{/t}</td>
 		<td><input type="text" name="short_desc" maxlength="120" value="{short_desc}" class="input400"/></td>
 	</tr>
+        {short_desc_empty_message}
 
 	<tr><td class="spacer" colspan="2"></td></tr>
 	<tr>
-		<td colspan="2">{t}Description:{/t} {desc_message}</td>
+		<td colspan="2">{t}Description:{/t} {desc_empty_message} {desc_message}</td>
 	</tr>
+        
 	<tr>
 		<td colspan="2">
 			<div class="menuBar">
