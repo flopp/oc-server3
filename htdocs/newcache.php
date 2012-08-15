@@ -571,8 +571,9 @@
 						if ( $latNS == 'S' ) $latitude = -$latitude;
 						
 						if ( $latitude == 0 )
-					{
-						$lat_zero = true;
+						{
+							$lat_zero = true;
+						}
 					}
 				}
 				
@@ -612,6 +613,7 @@
 						{
 							$lon_zero = true;
 						}
+					}
 				}
 				
 				/* we do not allow both components to be 0 */
