@@ -55,7 +55,8 @@
 	     show_all_langs
 	     difficulty_options
 	     terrain_options
-             effort_message
+             effort_time_message
+             effort_way_length_message
              search_time
              way_length
              type_message
@@ -214,12 +215,15 @@ function toggleAttr(id)
 	<tr><td>{t}Time and effort (optional):{/t}</td>
 	  <td>
 			{t}Time effort:{/t}
-      <input type="text" name="search_time" maxLength="10" value="{search_time}" class="input30" /> {t}h{/t}
+			<input type="text" name="search_time" maxLength="10" value="{search_time}" class="input30" /> {t}h{/t}
 			&nbsp;&nbsp;
 			{t}Distance:{/t}
-			<input type="text" name="way_length" maxlength="10" value="{way_length}" class="input30" /> {t}km{/t} &nbsp; {effort_message}
+			<input type="text" name="way_length" maxlength="10" value="{way_length}" class="input30" /> {t}km{/t}
 	  </td>
 	</tr>
+	{effort_time_message}
+	{effort_way_length_message}
+	
 	<tr>
 		<td>&nbsp;</td>
 		<td class="help"><img src="lang/de/ocstyle/images/misc/hint.gif" border="0" width="15" height="11" alt="{t}Notice{/t}" title="{t}Notice{/t}">

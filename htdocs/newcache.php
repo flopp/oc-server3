@@ -65,7 +65,8 @@
 			tpl_set_var('tos_message', '');
 			tpl_set_var('name_message', '');
 			tpl_set_var('desc_message', '');
-			tpl_set_var('effort_message', '');
+			tpl_set_var('effort_time_message', '');
+			tpl_set_var('effort_way_length_message', '');
 			tpl_set_var('size_message', '');
 			tpl_set_var('type_message', '');
 			tpl_set_var('diff_message', '');
@@ -633,27 +634,22 @@
 
 
 				//check effort
-				$time_not_ok = true;
-				if (is_numeric($search_time) || ($search_time == ''))
-				  {
-				    $time_not_ok = false;
-				  }
-				if ($time_not_ok)
-				  {
-				    tpl_set_var('effort_message', $time_not_ok_message);
-				    $error = true;
-				  }
-				$way_length_not_ok =true;
-				if  (is_numeric($way_length) || ($search_time == ''))
-				  {
-				    $way_length_not_ok = false;
-				  }
-				if ($way_length_not_ok)
-				  {
-				    tpl_set_var('effort_message', $way_length_not_ok_message);
-				    $error = true;
-				  }
-
+				$time_not_ok = false;
+				if ( $search_time != '' && ( !is_numeric( $search_time ) || $search_time < 0 ) )
+				{
+					tpl_set_var('effort_time_message', $time_not_ok_message);
+					$error = true;
+					$time_not_ok = true;
+				}
+				
+				$way_length_not_ok = false;
+				if ( $way_length != '' && ( !is_numeric( $way_length ) || $way_length < 0 ) )
+				{
+					tpl_set_var('effort_way_length_message', $way_length_not_ok_message);
+					$error = true;
+					$way_length_not_ok = true;
+				}
+				
 
 				//check hidden_since
 				$hidden_date_not_ok = true;
@@ -687,46 +683,34 @@
 				}
 
 				//name
+				$name_not_ok = false;
 				if ($name == '')
 				{
 					tpl_set_var('name_message', $name_not_ok_message);
 					$error = true;
 					$name_not_ok = true;
 				}
-				else
-				{
-					$name_not_ok = false;
-				}
 
 				//tos
+				$tos_not_ok = false;
 				if ($tos != 1)
 				{
 					tpl_set_var('tos_message', $tos_not_ok_message);
 					$error = true;
 					$tos_not_ok = true;
 				}
-				else
-				{
-					$tos_not_ok = false;
-				}
 
 				//html-desc?
 				$desc_html_not_ok = false;
 				if ($descMode != 1)
 				{
-          // Filter Input
-          $purifier = new HTMLPurifier();
-          $desc = $purifier->purify($desc);
-
+					// Filter Input
+					$purifier = new HTMLPurifier();
+					$desc = $purifier->purify($desc);
+					
+					/* the purifier removes all invalid elements, so $desc is valid by default! */ 
+					
 					tpl_set_var('desc', htmlspecialchars($desc, ENT_COMPAT, 'UTF-8'));
-
-				  $desc_html_not_ok = false;
-
-					if ($desc_html_not_ok == true)
-					{
-						tpl_set_var('desc_message', mb_ereg_replace('%text%', $errmsg, $html_desc_errbox));
-						$error = true;
-					}
 				}
 
 				//cache-size
@@ -797,7 +781,7 @@
 
 				
 				//no errors?
-				if (!($tos_not_ok || $name_not_ok || $hidden_date_not_ok || $activation_date_not_ok || $lon_not_ok || $lat_not_ok || $desc_html_not_ok || $time_not_ok || $way_length_not_ok || $size_not_ok || $type_not_ok || $diff_not_ok || $gcwpt_not_ok || $ncwpt_not_ok || $short_desc_empty || $desc_empty))
+				if (!($error || $tos_not_ok || $name_not_ok || $hidden_date_not_ok || $activation_date_not_ok || $lon_not_ok || $lat_not_ok || $desc_html_not_ok || $time_not_ok || $way_length_not_ok || $size_not_ok || $type_not_ok || $diff_not_ok || $gcwpt_not_ok || $ncwpt_not_ok || $short_desc_empty || $desc_empty))
 				{
 					//sel_status
 					$now = getdate();

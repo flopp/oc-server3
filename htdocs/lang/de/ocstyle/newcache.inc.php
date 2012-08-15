@@ -35,8 +35,8 @@
 
  $error_general = "<tr><td class='error' colspan='2'><b>" . t('Some errors occured, please check the marked fields.') . "</b></td></tr>";
  $error_coords_not_ok = '<span class="errormsg">' . t('The chosen coordinates are invalid.') . '</span>';
- $time_not_ok_message = '<span class="errormsg">' . t('The entered time is invalid.') . '</span>';
- $way_length_not_ok_message = '<span class="errormsg">' . t('The entered distance is invalid; valid format: aa.aaa') . '</span>';
+ $time_not_ok_message = '<tr><td></td><td><span class="errormsg">' . t('The entered time is invalid.') . '</span></td></tr>';
+ $way_length_not_ok_message = '<tr><td></td><td><span class="errormsg">' . t('The entered distance is invalid; valid format: aa.aaa') . '</span></td></tr>';
  $date_not_ok_message = '<span class="errormsg">' . t('Invalid date; valid format: DD-MM-JJJJ') . '</span>';
  $name_not_ok_message = '&nbsp;<span class="errormsg">' . t('The cache name is invalid.') . '</span>';
  $tos_not_ok_message = '<br/><span class="errormsg">' . t('The cache can only be submitted if you agree to the terms of service.') . '</span>';
