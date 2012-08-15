@@ -793,7 +793,7 @@
 
 				// GC and NC waypoints
 				$gcwpt_not_ok = false;
-				if ($wp_gc != "" && !mb_ereg_match('^[Gg][Cc][0-9A-Za-z]{1-6}$', $wp_gc))
+				if ($wp_gc != "" && !mb_ereg_match('^[Gg][Cc][0-9A-Za-z]{1,6}$', $wp_gc))
 				{
 					tpl_set_var('gcwpt_not_ok_message', $gcwpt_not_ok_message );
 					$error = true;
