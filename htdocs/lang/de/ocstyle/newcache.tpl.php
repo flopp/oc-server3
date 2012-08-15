@@ -178,7 +178,6 @@ function toggleAttr(id)
 			</select>
 			&nbsp;<input type="text" name="lat_h" maxlength="2" value="{lat_h}" class="input30" />
 			°&nbsp;<input type="text" name="lat_min" maxlength="6" value="{lat_min}" class="input50" />&nbsp;'&nbsp;
-			{lat_message}
 			&nbsp;&nbsp;
 			<select name="lonEW" class="input40">
 				<option value="E"{lonEsel}>{t}E{/t}</option>
@@ -186,7 +185,7 @@ function toggleAttr(id)
 			</select>
 			&nbsp;<input type="text" name="lon_h" maxlength="3" value="{lon_h}" class="input30" />
 			°&nbsp;<input type="text" name="lon_min" maxlength="6" value="{lon_min}" class="input50" />&nbsp;'&nbsp;
-			{lon_message}
+			{coords_message}
 		</td>
 	</tr>
 	<tr><td class="spacer" colspan="2"></td></tr>
