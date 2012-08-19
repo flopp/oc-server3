@@ -64,11 +64,8 @@
 	else
 		$tpl->error($translate->t('There is no google maps key registered for this domain.', '', '', 0));
 
-  $tpl->add_header_javascript('http://maps.google.com/maps?file=api&amp;v=2.x&amp;key=' . urlencode($sGMKey));
-  $tpl->add_header_javascript('resource2/misc/map/dragzoom_packed.js');
-  $tpl->add_header_javascript('resource2/misc/map/LatLonDisplayControl.js');
+  $tpl->add_header_javascript('https://maps.google.com/maps/api/js?sensor=false');
   $tpl->add_header_javascript('resource2/misc/map/CacheMarker.js');
-  //$tpl->add_header_javascript('resource2/misc/map/MessageControl.js');
   $tpl->add_body_load('mapLoad()');
   $tpl->add_body_unload('GUnload()');
 
