@@ -64,7 +64,7 @@
 	else
 		$tpl->error($translate->t('There is no google maps key registered for this domain.', '', '', 0));
 
-  $tpl->add_header_javascript('https://maps.google.com/maps/api/js?sensor=false');
+  $tpl->add_header_javascript('https://maps.googleapis.com/maps/api/js?key=' . urlencode($sGMKey) . '&amp;sensor=false');
   $tpl->add_header_javascript('resource2/misc/map/CacheMarker.js');
   $tpl->add_body_load('mapLoad()');
   $tpl->add_body_unload('GUnload()');
