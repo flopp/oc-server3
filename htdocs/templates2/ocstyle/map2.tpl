@@ -1191,6 +1191,37 @@ function data_clear()
 	}
 }
 
+
+/* delete all markers, except those specified in "wpset". return the set of remaining markers */
+function data_clear_except( wpset )
+{
+	var existing = {};
+	
+	document.getElementById('statCachesCount').firstChild.nodeValue = 0;
+	
+	var newList = new Array();
+	
+	for (var nIndex=0; nIndex<moMarkerList.length; nIndex++)
+	{
+		var oMarker = moMarkerList[nIndex];
+		var wp = oMarker.getWaypoint();
+		
+		if( wp != msPopupMarkerWP && !( wp in wpset ) )
+		{
+			oMarker.setMap(null);
+		}
+		else
+		{
+			existing[wp] = true;
+			newList[newList.length] = oMarker;
+		}
+	}
+	
+	moMarkerList = newList;
+	
+	return existing;
+}
+
 function data_load()
 {
 	window.clearTimeout(moDataLoadTimer);
@@ -1232,28 +1263,42 @@ function data_mapreceive(data, responseCode)
 		}
 		return;
 	}
-
-	data_clear();
-
+	
 	var record_count = oXML.documentElement.getAttribute("count");
 
 	download_enabled((record_count<=mnMaxDownloadCount) && (record_count>0));
 
+	/* nee too many markers -> clear all and display message */
 	if (oXML.documentElement.getAttribute("maxrecordreached") == 1)
 	{
+		data_clear();
 		tmd_show(record_count);
 		return;
 	}
-
+    
+    /* compute set of markers to keep */
+    var wpset = {};
 	var oCachesList = oXML.documentElement.getElementsByTagName("cache");
 	for (var nIndex=0; nIndex<oCachesList.length; nIndex++)
 	{
 		var sWaypoint = oCachesList[nIndex].getAttribute("wp");
-		var nLon = oCachesList[nIndex].getAttribute("lon");
-		var nLat = oCachesList[nIndex].getAttribute("lat");
-		var nType = oCachesList[nIndex].getAttribute("type");
+		wpset[sWaypoint] = true;
+	}
+	/* delete unneeded markers */
+	var alreadythere = data_clear_except( wpset );
+	
+	/* add new markers (skip existing) */
+	for (var nIndex=0; nIndex<oCachesList.length; nIndex++)
+	{
+		var sWaypoint = oCachesList[nIndex].getAttribute("wp");
+		if( !( sWaypoint in alreadythere ) )
+		{
+			var nLon = oCachesList[nIndex].getAttribute("lon");
+			var nLat = oCachesList[nIndex].getAttribute("lat");
+			var nType = oCachesList[nIndex].getAttribute("type");
 
-		addCacheToMap(sWaypoint, nLon, nLat, nType);
+			addCacheToMap(sWaypoint, nLon, nLat, nType);
+		}
 	}
 
 	document.getElementById('statCachesCount').firstChild.nodeValue = oCachesList.length;
