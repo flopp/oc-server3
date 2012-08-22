@@ -763,14 +763,18 @@
 					$ncwpt_not_ok = true;
 				}
 
-				// check if descriptions are empty
+				// check if short description is empty (=>DISABLED)
 				$short_desc_empty = false;
+				/*
 				if ($desc == "" )
 				{
 					tpl_set_var('short_desc_empty_message', $short_desc_empty_message );
 					$error = true;
 					$short_desc_empty = true;
 				}
+				*/
+				
+				// check if description is empty
 				$desc_empty = false;
 				if ($desc == "" )
 				{
