@@ -160,12 +160,16 @@
 
 <!-- Cachedetails -->
 <div class="content2-container">
-	<div class="content2-container-2col-left" id="viewcache-baseinfo">
-		<p class="content-title-noshade-size2">
-			<img src="resource2/{$opt.template.style}/images/viewcache/kompass.png" class="icon32" alt="" title="" />
-			<b><nobr>{$coordinates.lat|escape}</nobr> <nobr>{$coordinates.lon|escape}</nobr></b> <span class="content-title-noshade-size0">(WGS84)</span><br />  {* Ocprop: <b><nobr>([N|S].*?)&#039;<\/nobr> <nobr>([E|W].*?)&#039;<\/nobr><\/b>.*?WGS84 *}
-		</p>
-		<p style="line-height: 1.6em;">
+	<p class="content-title-noshade-size2">
+		<img src="resource2/{$opt.template.style}/images/viewcache/kompass.png" class="icon32" alt="" title="" />
+		<b><nobr>{$coordinates.lat|escape}</nobr> <nobr>{$coordinates.lon|escape}</nobr></b> <span class="content-title-noshade-size0">(WGS84)</span><br />  {* Ocprop: <b><nobr>([N|S].*?)&#039;<\/nobr> <nobr>([E|W].*?)&#039;<\/nobr><\/b>.*?WGS84 *}
+	</p>
+	
+	<div>
+		<div style="float: left;">
+			<div>
+				<div style="width: 350px; float: left">	
+					<p style="line-height: 1.6em;">
 			<img src="resource2/{$opt.template.style}/images/viewcache/map.png" class="icon16" alt="" title="" align="middle" />&nbsp;<a href="#" onclick="window.open('coordinates.php?lat={$cache.latitude}&lon={$cache.longitude}&popup=y&wp={$cache.wpoc}','{t escape=js}Coordinates{/t}','width=280,height=430,resizable=no,scrollbars=0')">{t}Convert coordinates{/t}</a><br />
 			<!-- <img src="resource2/{$opt.template.style}/images/viewcache/box.png" class="icon16" alt="" title="" align="middle" />&nbsp;Cache type: <b>Traditional</b><br /> -->
 			<img src="resource2/{$opt.template.style}/images/viewcache/package_green.png" class="icon16" alt="" title="" align="middle" />&nbsp;{t}Size{/t}: <b>{$cache.sizeName|escape}</b><br />
@@ -195,33 +199,11 @@
 					<a href="http://www.navicache.com/cgi-bin/db/displaycache2.pl?CacheID={nccacheid wp=$cache.wpnc}" target="_blank">navicache.com</a>
 				{/if}
 			{/if}
-		</p>
-		<p>
-			<a style="background-image: url(resource2/{$opt.template.style}/images/viewcache/print-18.png);background-repeat:no-repeat;" onclick="window.location='viewcache.php?cacheid={$cache.cacheid}&print=y&log=A&nocrypt=' + bNoCrypt"><input name="PrintA" id="PrintA" value="{t}Print{/t}" type="button" /></a>
-			<a style="background-image: url(resource2/{$opt.template.style}/images/viewcache/print-18.png);background-repeat:no-repeat;" onclick="window.location='viewcache.php?cacheid={$cache.cacheid}&print=y&log=N&nocrypt=' + bNoCrypt"><input name="PrintN" id="PrintN" value="{t}Print no logs{/t}" type="button" /></a>
-			<a style="background-image: url(resource2/{$opt.template.style}/images/viewcache/print-18.png);background-repeat:no-repeat;" onclick="window.location='viewcache.php?cacheid={$cache.cacheid}&print=y&log=5&nocrypt=' + bNoCrypt"><input name="Print5" id="Print5" value="{t}Print last logs{/t}" type="button" /></a>
-		</p>
-		<p>
-			<a class="send-to-gps" href="#" onclick="window.open('garmin.php?lat={$cache.latitude}&lon={$cache.longitude}&wp={$cache.wpoc}','{t escape=js}Send{/t}','width=640,height=320,resizable=no,scrollbars=1')"><input name="SendToGPS" value="{t}Send to GPS device{/t}" id="SendToGPS" type="button" /></a>
-
-			&nbsp;&nbsp;<img src="resource2/{$opt.template.style}/images/viewcache/16x16-save.png" class="icon16" alt="" />
-
-			<select name="wpdownload" class="wpdownload" onchange="location.href=this.options[this.selectedIndex].value"> 
-				<option value="#">{t}Download as...{/t}</option>
-				<option value="search.php?searchto=searchbycacheid&showresult=1&f_inactive=0&f_ignored=0&startat=0&cacheid={$cache.cacheid}&output=gpx">GPX</option>
-				<option value="search.php?searchto=searchbycacheid&showresult=1&f_inactive=0&f_ignored=0&startat=0&cacheid={$cache.cacheid}&output=loc">LOC</option>
-				<option value="search.php?searchto=searchbycacheid&showresult=1&f_inactive=0&f_ignored=0&startat=0&cacheid={$cache.cacheid}&output=kml">KML</option>
-				<option value="search.php?searchto=searchbycacheid&showresult=1&f_inactive=0&f_ignored=0&startat=0&cacheid={$cache.cacheid}&output=ov2">OV2</option>
-				<option value="search.php?searchto=searchbycacheid&showresult=1&f_inactive=0&f_ignored=0&startat=0&cacheid={$cache.cacheid}&output=ovl">OVL</option>
-				<option value="search.php?searchto=searchbycacheid&showresult=1&f_inactive=0&f_ignored=0&startat=0&cacheid={$cache.cacheid}&output=txt">TXT</option>
-			</select>
-		</p>
-		<p>&nbsp;</p>
-	</div>
-
-	<div class="content2-container-2col-right" id="viewcache-maptypes">
-		<div class="content2-container-2col-left" id="viewcache-numstats">
-			<p style="line-height: 1.4em;"><br /><br />
+					</p>
+				</div>
+				
+				<div style="left: 350px; width: 200px; float: right">
+					<p style="line-height: 1.6em;">
 				<img src="resource2/{$opt.template.style}/images/{if $cache.type==6}log{else}viewcache{/if}/16x16-{if $cache.type==6}attended{else}found{/if}.png" class="icon16" alt="" /> {$cache.found} {if $cache.type==6} {t}Attended{/t}{else}{t}Found{/t}{/if}<br />
 				<img src="resource2/{$opt.template.style}/images/{if $cache.type==6}log{else}viewcache{/if}/16x16-{if $cache.type==6}will_attend{else}dnf{/if}.png" class="icon16" alt="" /> {if $cache.type==6} {$cache.willattend} {t}Will attend{/t}{else} {$cache.notfound} {t}Not found{/t}{/if}<br />
 				<img src="resource2/{$opt.template.style}/images/viewcache/16x16-note.png" class="icon16" alt="" /> {$cache.note} {t}Notes{/t}<br />
@@ -233,9 +215,35 @@
 				{if $cache.topratings>0}
 					<img src="resource2/{$opt.template.style}/images/viewcache/rating-star.gif" class="icon16" alt="" /> {$cache.topratings} {t}Recommendations{/t}<br />
 				{/if}
-			</p>
+					</p>
+				</div>
+			</div>
+			<div style="float: left">
+			<img src="resource2/{$opt.template.style}/images/viewcache/print-18.png" class="icon16" alt="" />
+			<select onchange="location.href=this.options[this.selectedIndex].value+'&nocrypt='+bNoCrypt" class="formselect">
+				<option value="#">{t}Print...{/t}</option>
+				<option value="viewcache.php?cacheid={$cache.cacheid}&print=y&log=A">{t}Print{/t}</option>
+				<option value="viewcache.php?cacheid={$cache.cacheid}&print=y&log=N">{t}Print no logs{/t}</option>
+				<option value="viewcache.php?cacheid={$cache.cacheid}&print=y&log=5">{t}Print last logs{/t}</option>
+			</select>
+			 
+			<img src="resource2/{$opt.template.style}/images/viewcache/16x16-save.png" class="icon16" alt="" />
+			<select onchange="location.href=this.options[this.selectedIndex].value" class="formselect"> 
+				<option value="#">{t}Download as...{/t}</option>
+				<option value="search.php?searchto=searchbycacheid&showresult=1&f_inactive=0&f_ignored=0&startat=0&cacheid={$cache.cacheid}&output=gpx">GPX</option>
+				<option value="search.php?searchto=searchbycacheid&showresult=1&f_inactive=0&f_ignored=0&startat=0&cacheid={$cache.cacheid}&output=loc">LOC</option>
+				<option value="search.php?searchto=searchbycacheid&showresult=1&f_inactive=0&f_ignored=0&startat=0&cacheid={$cache.cacheid}&output=kml">KML</option>
+				<option value="search.php?searchto=searchbycacheid&showresult=1&f_inactive=0&f_ignored=0&startat=0&cacheid={$cache.cacheid}&output=ov2">OV2</option>
+				<option value="search.php?searchto=searchbycacheid&showresult=1&f_inactive=0&f_ignored=0&startat=0&cacheid={$cache.cacheid}&output=ovl">OVL</option>
+				<option value="search.php?searchto=searchbycacheid&showresult=1&f_inactive=0&f_ignored=0&startat=0&cacheid={$cache.cacheid}&output=txt">TXT</option>
+			</select>
+			
+			<input name="SendToGPS" value="{t}Send to GPS device{/t}" onclick="window.open('garmin.php?lat={$cache.latitude}&lon={$cache.longitude}&wp={$cache.wpoc}','{t escape=js}Send{/t}','width=640,height=320,resizable=no,scrollbars=1')" type="button" class="formbuttonvariable"/>
+			</div>
 		</div>
-		<div id="viewcache-map" class="content2-container-2col-right" style="overflow:hidden">
+
+		<div style="width:200px; overflow:hidden; float:right; text-align: right">
+			<a href="map2.php?{$cache.wpoc}" target="_blank">
 			{if $cachemap.iframe}
 				<div class="img-shadow">
 					<iframe src="{$cachemap.url}" width="200px" height="200px" frameborder="0">
@@ -244,11 +252,9 @@
 			{else}
 				<img src="{$cachemap.url}" height="200px" width="200px" />
 			{/if}
+				{t}Large map{/t}
+			</a>
 		</div>
-
-		<b>{t}Maps:{/t}</b> 
-		<a href="map2.php?wp={$cache.wpoc}" target="_blank">{t}Opencaching.de{/t}</a>,<br /><a href="http://www.mapquest.com/maps/map.adp?latlongtype=decimal&latitude={$cache.latitude}&longitude={$cache.longitude}" target="_blank">Mapquest</a>,<br />
-		<a href="http://maps.google.de/maps?q={$cache.latitude},{$cache.longitude}+({$cache.wpoc}%20-%20{$cache.name|replace:'(':''|replace:')':''|escape:'url'})&z=15" target="_blank">{t}Google Maps{/t}</a>			
 	</div>
 </div>
 <!-- End Cachedetails -->
