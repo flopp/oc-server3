@@ -637,6 +637,7 @@ input.formbutton {
 	background-color:#dbe6f1;
 	color: #000000;
 	border-radius: 3px;
+	font-size: 11px; 
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
 }
@@ -655,6 +656,7 @@ input.formbutton_active {
 	color: #000000;
 	background-color:#e5eef5;
 	border-radius: 3px;
+	font-size: 11px; 
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
 	box-shadow: 0px 0px 1px #555;
@@ -662,21 +664,27 @@ input.formbutton_active {
 	-webkit-box-shadow: 0px 0px 1px #555;
 }
 
-select.formselect {
+.formselect {
+	height: 22px;
+	margin: 0px;
 	border:1px solid #5f90bb;
-	padding:1px 0px 1px 0;
+	padding:2px;
 	background-color:#dbe6f1;
 	color: #000000;
 	border-radius: 3px;
+	font-size: 11px; 
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
 }
 
-input.formbuttonvariable {
+.formbuttonvariable {
+	height: 22px;
+	margin: 0px;
 	border:1px solid #5f90bb;
-	padding:2px 4px 2px 4px;
+	padding:2px;
 	background-color:#dbe6f1;
 	color: #000000;
+	font-size: 11px; 
 	border-radius: 3px;
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
@@ -825,7 +833,7 @@ form#register div {
 	margin: 7px 0 5px 0;
 }
 
-form, input, textarea, button {
+form, input, textarea, button, select {
 	font-family: Arial, Tahoma, Verdana, sans-serif;
 	font-size: 8pt;
 }
