@@ -28,6 +28,7 @@
 	     lonWsel
 	     lon_h
 	     lon_min
+	     coords_message
 	     countryoptions
 	     langoptions
 	     short_desc
@@ -45,7 +46,8 @@
 	     show_all_langs
 	     difficulty_options
 	     terrain_options
-             effort_message
+	     effort_time_message
+	     effort_way_length_message
              search_time
              way_length
              type_message
@@ -166,7 +168,6 @@ function toggleAttr(id)
 			</select>
 			&nbsp;<input type="text" name="lat_h" maxlength="2" value="{lat_h}" class="input30" />
 			°&nbsp;<input type="text" name="lat_min" maxlength="6" value="{lat_min}" class="input50" />&nbsp;'&nbsp;
-			{lat_message}
 			&nbsp;&nbsp;
 			<select name="lonEW" class="input40">
 				<option value="E"{lonEsel}>{t}E{/t}</option>
@@ -174,7 +175,7 @@ function toggleAttr(id)
 			</select>
 			&nbsp;<input type="text" name="lon_h" maxlength="3" value="{lon_h}" class="input30" />
 			°&nbsp;<input type="text" name="lon_min" maxlength="6" value="{lon_min}" class="input50" />&nbsp;'&nbsp;
-			{lon_message}
+			{coords_message}
 		</td>
 	</tr>
 	<tr><td class="spacer" colspan="2"></td></tr>
@@ -203,12 +204,18 @@ function toggleAttr(id)
 	<tr><td>{t}Time and effort (optional):{/t}</td>
 	  <td>
 			{t}Time effort:{/t}
-      <input type="text" name="search_time" maxLength="10" value="{search_time}" class="input30" /> {t}h{/t}
+			<input type="text" name="search_time" maxLength="10" value="{search_time}" class="input30" /> {t}h{/t}
 			&nbsp;&nbsp;
 			{t}Distance:{/t}
-			<input type="text" name="way_length" maxlength="10" value="{way_length}" class="input30" /> {t}km{/t} &nbsp; {effort_message}
+			<input type="text" name="way_length" maxlength="10" value="{way_length}" class="input30" /> {t}km{/t} &nbsp;
 	  </td>
 	</tr>
+	<!--
+	<tr>
+		<td>&nbsp;</td>
+		<td>{effort_time_message} {effort_way_length_message}</td>
+	</tr>
+	-->
 	<tr>
 		<td>&nbsp;</td>
 		<td class="help"><img src="lang/de/ocstyle/images/misc/hint.gif" border="0" width="15" height="11" alt="{t}Notice{/t}" title="{t}Notice{/t}">
@@ -225,6 +232,12 @@ function toggleAttr(id)
 			navicache.com: <input type="text" name="wp_nc" value="{wp_nc}" maxlength="6" class="input50">
 		</td>
 	</tr>
+	<!--
+	<tr>
+		<td>&nbsp;</td>
+		<td>{gc_wp_message}&nbsp;{nc_wp_message}</td>
+	</tr>
+	-->
 	<tr>
 		<td>&nbsp;</td>
 		<td class="help"><img src="lang/de/ocstyle/images/misc/hint.gif" border="0" width="15" height="11" alt="{t}Notice{/t}" title="{t}Notice{/t}">

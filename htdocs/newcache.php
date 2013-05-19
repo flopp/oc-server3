@@ -51,12 +51,14 @@
 			tpl_set_var('general_message', '');
 			tpl_set_var('hidden_since_message', '');
 			tpl_set_var('activate_on_message', '');
-			tpl_set_var('lon_message', '');
-			tpl_set_var('lat_message', '');
+			tpl_set_var('coords_message', '');
 			tpl_set_var('tos_message', '');
 			tpl_set_var('name_message', '');
 			tpl_set_var('desc_message', '');
-			tpl_set_var('effort_message', '');
+			tpl_set_var('effort_time_message', '');
+			tpl_set_var('effort_way_length_message', '');
+			tpl_set_var('gc_wp_message', '');
+			tpl_set_var('nc_wp_message', '');
 			tpl_set_var('size_message', '');
 			tpl_set_var('type_message', '');
 			tpl_set_var('diff_message', '');
@@ -525,163 +527,110 @@
 			{
 				//check the entered data
 
-				//check coordinates
-				if ($lat_h!='' || $lat_min!='')
+				/* check latitude */
+				$lat_not_ok = false;
+				$latitude = NULL;
+				if ( $lat_h =='' || $lat_min == '' )
 				{
-					if (!mb_ereg_match('^[0-9]{1,2}$', $lat_h))
-					{
-						tpl_set_var('lat_message', $error_coords_not_ok);
-						$error = true;
-						$lat_h_not_ok = true;
-					}
-					else
-					{
-						if (($lat_h >= 0) && ($lat_h < 90))
-						{
-							$lat_h_not_ok = false;
-						}
-						else
-						{
-							tpl_set_var('lat_message', $error_coords_not_ok);
-							$error = true;
-							$lat_h_not_ok = true;
-						}
-					}
-
-					if (is_numeric($lat_min))
-					{
-						if (($lat_min >= 0) && ($lat_min < 60))
-						{
-							$lat_min_not_ok = false;
-						}
-						else
-						{
-							tpl_set_var('lat_message', $error_coords_not_ok);
-							$error = true;
-							$lat_min_not_ok = true;
-						}
-					}
-					else
-					{
-						tpl_set_var('lat_message', $error_coords_not_ok);
-						$error = true;
-						$lat_min_not_ok = true;
-					}
-
-					$latitude = $lat_h + $lat_min / 60;
-					if ($latNS == 'S') $latitude = -$latitude;
-
-					if ($latitude == 0)
-					{
-						tpl_set_var('lon_message', $error_coords_not_ok);
-						$error = true;
-						$lat_min_not_ok = true;
-					}
+					$lat_not_ok = true;
 				}
 				else
 				{
-					$latitude = NULL;
-					$lat_h_not_ok = false;
-					$lat_min_not_ok = false;
+					if ( !mb_ereg_match( '^[0-9]{1,2}$', $lat_h ) )
+					{
+						$lat_not_ok = true;
+					}
+					else if( ($lat_h < 0) || ($lat_h > 90) )
+					{
+						$lat_not_ok = true;
+					}
+					else if ( !is_numeric( $lat_min ) )
+					{
+						$lat_not_ok = true;
+					}
+					else if( ($lat_min < 0) || ($lat_min >= 60) )
+					{
+						$lat_not_ok = true;
+					}
+					else
+					{
+						$latitude = $lat_h + $lat_min / 60;
+						if ( $latNS == 'S' ) $latitude = -$latitude;
+					}
 				}
-
-				if ($lon_h!='' || $lon_min!='')
+				
+				
+				/* check longitude */
+				$lon_not_ok = false;
+				$longitude = NULL;
+				if ( $lon_h == '' || $lon_min == '' )
 				{
-					if (!mb_ereg_match('^[0-9]{1,3}$', $lon_h))
-					{
-						tpl_set_var('lon_message', $error_coords_not_ok);
-						$error = true;
-						$lon_h_not_ok = true;
-					}
-					else
-					{
-						if (($lon_h >= 0) && ($lon_h < 180))
-						{
-							$lon_h_not_ok = false;
-						}
-						else
-						{
-							tpl_set_var('lon_message', $error_coords_not_ok);
-							$error = true;
-							$lon_h_not_ok = true;
-						}
-					}
-
-					if (is_numeric($lon_min))
-					{
-						if (($lon_min >= 0) && ($lon_min < 60))
-						{
-							$lon_min_not_ok = false;
-						}
-						else
-						{
-							tpl_set_var('lon_message', $error_coords_not_ok);
-							$error = true;
-							$lon_min_not_ok = true;
-						}
-					}
-					else
-					{
-						tpl_set_var('lon_message', $error_coords_not_ok);
-						$error = true;
-						$lon_min_not_ok = true;
-					}
-
-					$longitude = $lon_h + $lon_min / 60;
-					if ($lonEW == 'W') $longitude = -$longitude;
-
-					if ($longitude == 0)
-					{
-						tpl_set_var('lon_message', $error_coords_not_ok);
-						$error = true;
-						$lon_min_not_ok = true;
-					}
+					$lon_not_ok = true;
 				}
 				else
 				{
-					$longitude = NULL;
-					$lon_h_not_ok = false;
-					$lon_min_not_ok = false;
+					if ( !mb_ereg_match( '^[0-9]{1,3}$', $lon_h ) )
+					{
+						$lon_not_ok = true;
+					}
+					else if( ($lon_h < 0) || ($lon_h > 180) )
+					{
+						$lon_not_ok = true;
+					}
+					else if ( !is_numeric( $lon_min ) )
+					{
+						$lon_not_ok = true;
+					}
+					else if( ($lon_min < 0) || ($lon_min >= 60) )
+					{
+						$lon_not_ok = true;
+					}
+					else
+					{
+						$longitude = $lon_h + $lon_min / 60;
+						if ( $lonEW == 'W' ) $longitude = -$longitude;
+					}
 				}
-
-				$lon_not_ok = $lon_min_not_ok || $lon_h_not_ok;
-				$lat_not_ok = $lat_min_not_ok || $lat_h_not_ok;
-
+				
+				if( $lat_not_ok || $lon_not_ok || ( $latitude == 0 && $longitude == 0 ) )
+				{
+					tpl_set_var('coords_message', $error_coords_not_ok);
+					$error = true;
+				}
+				
+				
 				//check effort
-				$time_not_ok = true;
-				if (is_numeric($search_time) || ($search_time == ''))
-				  {
-				    $time_not_ok = false;
-				  }
-				if ($time_not_ok)
-				  {
-				    tpl_set_var('effort_message', $time_not_ok_message);
-				    $error = true;
-				  }
-				$way_length_not_ok =true;
-				if  (is_numeric($way_length) || ($search_time == ''))
-				  {
-				    $way_length_not_ok = false;
-				  }
-				if ($way_length_not_ok)
-				  {
-				    tpl_set_var('effort_message', $way_length_not_ok_message);
-				    $error = true;
-				  }
-
-
-				//check hidden_since
-				$hidden_date_not_ok = true;
-				if (is_numeric($hidden_day) && is_numeric($hidden_month) && is_numeric($hidden_year))
+				if ( $search_time != '' && !is_numeric($search_time))
 				{
-					$hidden_date_not_ok = (checkdate($hidden_month, $hidden_day, $hidden_year) == false);
+					tpl_set_var('effort_time_message', $time_not_ok_message);
+					$error = true;
 				}
-				if ($hidden_date_not_ok)
+				if( $way_length != '' && !is_numeric($way_length))
+				{
+					tpl_set_var('effort_way_length_message', $way_length_not_ok_message);
+					$error = true;
+				}
+				
+				// check GC and NC waypoints
+				if ($wp_gc != "" && !mb_ereg_match('^[Gg][Cc][0-9A-Za-z]{1,6}$', $wp_gc))
+				{
+					tpl_set_var('gc_wp_message', $gc_wp_not_ok_message );
+					$error = true;
+				}
+				if ($wp_nc != "" && !mb_ereg_match('^[Nn][0-9A-Za-z]{1,6}$', $wp_nc))
+				{
+					tpl_set_var('nc_wp_message', $nc_wp_not_ok_message );
+					$error = true;
+				}
+				
+				//check hidden_since
+				if ( !is_numeric($hidden_day) || !is_numeric($hidden_month) || !is_numeric($hidden_year) || !checkdate($hidden_month, $hidden_day, $hidden_year) )
 				{
 					tpl_set_var('hidden_since_message', $date_not_ok_message);
 					$error = true;
 				}
-
+				
+				
 				//check date_activate
 				$activation_date_not_ok = true;
 				if (is_numeric($activate_day) && is_numeric($activate_month) && is_numeric($activate_year) && is_numeric($activate_hour))
@@ -706,11 +655,6 @@
 				{
 					tpl_set_var('name_message', $name_not_ok_message);
 					$error = true;
-					$name_not_ok = true;
-				}
-				else
-				{
-					$name_not_ok = false;
 				}
 
 				//tos
@@ -718,70 +662,53 @@
 				{
 					tpl_set_var('tos_message', $tos_not_ok_message);
 					$error = true;
-					$tos_not_ok = true;
-				}
-				else
-				{
-					$tos_not_ok = false;
 				}
 
 				//html-desc?
 				if ($descMode != 1)
 				{
-          // Filter Input
-          $purifier = new HTMLPurifier();
-          $desc = $purifier->purify($desc);
-
+					// Filter Input
+					$purifier = new HTMLPurifier();
+					$desc = $purifier->purify($desc);
 					tpl_set_var('desc', htmlspecialchars($desc, ENT_COMPAT, 'UTF-8'));
 				}
 
 				//cache-size
-				$size_not_ok = false;
 				if ($sel_size == -1)
 				{
 					tpl_set_var('size_message', $size_not_ok_message);
 					$error = true;
-					$size_not_ok = true;
 				}
 
 				//cache-type
-				$type_not_ok = false;
 				if ($sel_type == -1)
 				{
 					tpl_set_var('type_message', $type_not_ok_message);
 					$error = true;
-					$type_not_ok = true;
 				}
 
 				if ($sel_size != 7 && ($sel_type == 4 || $sel_type == 5))
 				{
 					if (!$size_not_ok) tpl_set_var('size_message', $sizemismatch_message);
 					$error = true;
-					$size_not_ok = true;
 				}
 
 				//difficulty / terrain
-				$diff_not_ok = false;
 				if ($difficulty < 2 || $difficulty > 10 || $terrain < 2 || $terrain > 10)
 				{
 					tpl_set_var('diff_message', $diff_not_ok_message);
 					$error = true;
-					$diff_not_ok = true;
 				}
 
 				// attributes
-				$attribs_not_ok = false;
 				if (in_array(ATTRIB_ID_SAFARI,$cache_attribs) && $sel_type != 4)
 				{
 					tpl_set_var('safari_message', $safari_not_allowed_message);
 					$error = true;
-					$attribs_not_ok = true;
 				}
-				else
-					tpl_set_var('safari_message', '');
 
 				//no errors?
-				if (!($tos_not_ok || $name_not_ok || $hidden_date_not_ok || $activation_date_not_ok || $lon_not_ok || $lat_not_ok || $time_not_ok || $way_length_not_ok || $size_not_ok || $type_not_ok || $diff_not_ok || $attribs_not_ok))
+				if ( !$error )
 				{
 					//sel_status
 					$now = getdate();
