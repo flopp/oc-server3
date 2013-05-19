@@ -27,8 +27,7 @@
  $error_coords_not_ok = '<span class="errormsg">' . t('Your chosen coordinated are invalid') . '</span>';
  $time_not_ok_message = '<span class="errormsg">' . t('The entered time is invalid.') . '</span>';
  $way_length_not_ok_message = '<span class="errormsg">' . t('The entered distance is invalid, Format: aa.aaa') . '</span>';
- $gc_wp_not_ok_message = '<span class="errormsg">' . t('The entered geocaching.com waypoint is invalid; format: GC12345.') . '</span>';
- $nc_wp_not_ok_message = '<span class="errormsg">' . t('The entered navicache.com waypoint is invalid; format: NC12345.') . '</span>';
+ $wp_not_ok_message = '<span class="errormsg">' . t('One of the entered waypoint is invalid; formats: GC12345, NC12345.') . '</span>';
  $date_not_ok_message = '<span class="errormsg">' . t('Invalid date, format:DD-MM-JJJJ') . '</span>';
  $name_not_ok_message = '&nbsp;<span class="errormsg">' . t('Cachename is invalid') . '</span>';
  $tos_not_ok_message = '<br/><span class="errormsg">' . t('The cache can only be adopted if you agree our terms of use.') . '</span>';

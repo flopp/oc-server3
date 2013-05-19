@@ -139,7 +139,10 @@ function toggleAttr(id)
 	<tr><td class="spacer" colspan="2"></td></tr>
 	<tr>
 		<td>{t}Name:{/t}</td>
-		<td><input type="text" name="name" value="{name}" maxlength="60" class="input400" />{name_message}</td>
+		<td>
+			<input type="text" name="name" value="{name}" maxlength="60" class="input400" />
+			{name_message}
+		</td>
 	</tr>
 	<tr><td class="spacer" colspan="2"><img src="/images/trans.gif" border="0" width="1" height="1" alt="" title="" /></td></tr>
 	<tr>
@@ -147,7 +150,8 @@ function toggleAttr(id)
 		<td>
 			<select name="type" class="input200" onChange="return _chkVirtual()">
 				{typeoptions}
-			</select>{type_message}
+			</select>
+			{type_message}
 		</td>
 	</tr>
 	<tr>
@@ -155,7 +159,8 @@ function toggleAttr(id)
 		<td>
 			<select name="size" class="input200" onChange="return _chkVirtual()">
 				{sizeoptions}
-			</select>{size_message}
+			</select>
+			{size_message}
 		</td>
 	</tr>
 	<tr><td class="spacer" colspan="2"></td></tr>
@@ -198,7 +203,8 @@ function toggleAttr(id)
 			{t}Terrain:{/t}
 			<select name="terrain" class="input60">
 				{terrain_options}
-			</select>{diff_message}
+			</select>
+			{diff_message}
 		</td>
 	</tr>
 	<tr><td>{t}Time and effort (optional):{/t}</td>
@@ -207,12 +213,9 @@ function toggleAttr(id)
 			<input type="text" name="search_time" maxLength="10" value="{search_time}" class="input30" /> {t}h{/t}
 			&nbsp;&nbsp;
 			{t}Distance:{/t}
-			<input type="text" name="way_length" maxlength="10" value="{way_length}" class="input30" /> {t}km{/t}
+			<input type="text" name="way_length" maxlength="10" value="{way_length}" class="input30" /> {t}km{/t} 
+			{effort_time_message} {effort_way_length_message}
 	  </td>
-	</tr>
-	<tr>
-		<td>&nbsp;</td>
-		<td>{effort_time_message} {effort_way_length_message}</td>
 	</tr>
 	<tr>
 		<td>&nbsp;</td>
@@ -226,13 +229,12 @@ function toggleAttr(id)
 	<tr>
 		<td>{t}Waypoints:{/t}</td>
 		<!-- allow wp_gc copy&paste with leading spaces; will be trimmed later -->
-		<td>geocaching.com: <input type="text" name="wp_gc" value="{wp_gc}" maxlength="12" class="input50">
-			navicache.com: <input type="text" name="wp_nc" value="{wp_nc}" maxlength="6" class="input50">
+		<td>
+			geocaching.com: <input type="text" name="wp_gc" value="{wp_gc}" maxlength="12" class="input50">
+			&nbsp;&nbsp;
+			navicache.com: <input type="text" name="wp_nc" value="{wp_nc}" maxlength="6" class="input50"> 
+			{wp_message}
 		</td>
-	</tr>
-	<tr>
-		<td>&nbsp;</td>
-		<td>{gc_wp_message} {nc_wp_message}</td>
 	</tr>
 	<tr>
 		<td>&nbsp;</td>
