@@ -24,7 +24,7 @@
 	$no_tpl_build = false;
 
 	//Preprocessing
-	if ($error == false)
+	if ($errors == false)
 	{
 		//must be logged in
 		if ($usr === false)
@@ -595,7 +595,7 @@
 				if( $lat_not_ok || $lon_not_ok || ( $latitude == 0 && $longitude == 0 ) )
 				{
 					tpl_set_var('coords_message', $error_coords_not_ok);
-					$error = true;
+					$errors = true;
 				}
 				
 				
@@ -603,31 +603,31 @@
 				if ( $search_time != '' && !is_numeric($search_time))
 				{
 					tpl_set_var('effort_time_message', $time_not_ok_message);
-					$error = true;
+					$errors = true;
 				}
 				if( $way_length != '' && !is_numeric($way_length))
 				{
 					tpl_set_var('effort_way_length_message', $way_length_not_ok_message);
-					$error = true;
+					$errors = true;
 				}
 				
 				// check GC and NC waypoints
 				if ($wp_gc != "" && !mb_ereg_match('^[Gg][Cc][0-9A-Za-z]{1,6}$', $wp_gc))
 				{
 					tpl_set_var('gc_wp_message', $gc_wp_not_ok_message );
-					$error = true;
+					$errors = true;
 				}
 				if ($wp_nc != "" && !mb_ereg_match('^[Nn][0-9A-Za-z]{1,6}$', $wp_nc))
 				{
 					tpl_set_var('nc_wp_message', $nc_wp_not_ok_message );
-					$error = true;
+					$errors = true;
 				}
 				
 				//check hidden_since
 				if ( !is_numeric($hidden_day) || !is_numeric($hidden_month) || !is_numeric($hidden_year) || !checkdate($hidden_month, $hidden_day, $hidden_year) )
 				{
 					tpl_set_var('hidden_since_message', $date_not_ok_message);
-					$error = true;
+					$errors = true;
 				}
 				
 				
@@ -647,21 +647,21 @@
 				if ($activation_date_not_ok)
 				{
 					tpl_set_var('activate_on_message', $date_not_ok_message);
-					$error = true;
+					$errors = true;
 				}
 
 				//name
 				if ($name == '')
 				{
 					tpl_set_var('name_message', $name_not_ok_message);
-					$error = true;
+					$errors = true;
 				}
 
 				//tos
 				if ($tos != 1)
 				{
 					tpl_set_var('tos_message', $tos_not_ok_message);
-					$error = true;
+					$errors = true;
 				}
 
 				//html-desc?
@@ -674,41 +674,43 @@
 				}
 
 				//cache-size
+				$size_not_ok = false;
 				if ($sel_size == -1)
 				{
 					tpl_set_var('size_message', $size_not_ok_message);
-					$error = true;
+					$errors = true;
+					$size_not_ok = true;
 				}
 
 				//cache-type
 				if ($sel_type == -1)
 				{
 					tpl_set_var('type_message', $type_not_ok_message);
-					$error = true;
+					$errors = true;
 				}
 
 				if ($sel_size != 7 && ($sel_type == 4 || $sel_type == 5))
 				{
 					if (!$size_not_ok) tpl_set_var('size_message', $sizemismatch_message);
-					$error = true;
+					$errors = true;
 				}
 
 				//difficulty / terrain
 				if ($difficulty < 2 || $difficulty > 10 || $terrain < 2 || $terrain > 10)
 				{
 					tpl_set_var('diff_message', $diff_not_ok_message);
-					$error = true;
+					$errors = true;
 				}
 
 				// attributes
 				if (in_array(ATTRIB_ID_SAFARI,$cache_attribs) && $sel_type != 4)
 				{
 					tpl_set_var('safari_message', $safari_not_allowed_message);
-					$error = true;
+					$errors = true;
 				}
 
 				//no errors?
-				if ( !$error )
+				if ( !$errors )
 				{
 					//sel_status
 					$now = getdate();

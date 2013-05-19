@@ -207,15 +207,13 @@ function toggleAttr(id)
 			<input type="text" name="search_time" maxLength="10" value="{search_time}" class="input30" /> {t}h{/t}
 			&nbsp;&nbsp;
 			{t}Distance:{/t}
-			<input type="text" name="way_length" maxlength="10" value="{way_length}" class="input30" /> {t}km{/t} &nbsp;
+			<input type="text" name="way_length" maxlength="10" value="{way_length}" class="input30" /> {t}km{/t}
 	  </td>
 	</tr>
-	<!--
 	<tr>
 		<td>&nbsp;</td>
 		<td>{effort_time_message} {effort_way_length_message}</td>
 	</tr>
-	-->
 	<tr>
 		<td>&nbsp;</td>
 		<td class="help"><img src="lang/de/ocstyle/images/misc/hint.gif" border="0" width="15" height="11" alt="{t}Notice{/t}" title="{t}Notice{/t}">
@@ -232,12 +230,10 @@ function toggleAttr(id)
 			navicache.com: <input type="text" name="wp_nc" value="{wp_nc}" maxlength="6" class="input50">
 		</td>
 	</tr>
-	<!--
 	<tr>
 		<td>&nbsp;</td>
-		<td>{gc_wp_message}&nbsp;{nc_wp_message}</td>
+		<td>{gc_wp_message} {nc_wp_message}</td>
 	</tr>
-	-->
 	<tr>
 		<td>&nbsp;</td>
 		<td class="help"><img src="lang/de/ocstyle/images/misc/hint.gif" border="0" width="15" height="11" alt="{t}Notice{/t}" title="{t}Notice{/t}">
