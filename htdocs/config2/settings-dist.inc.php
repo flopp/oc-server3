@@ -372,7 +372,11 @@
 	 * Coordinates of new caches are appended to the url.
 	 */ 
 	$opt['logic']['minimapurl'] = 'http://maps.googleapis.com/maps/api/staticmap?sensor=false&key={gmkey}&size=220x220&maptype=roadmap&markers=color:blue|size:small';
-	
+
+	/* cachelab.net API key; if no key is given, cachelab.net-support is disabled in viewcache. */
+	$opt['logic']['cachelab']['url'] = 'https://ssl.webpack.de/api.cachelab.net/cacheexists.php'
+	$opt['logic']['cachelab']['key'] = '...'
+
 	/* target vars
 	 * all _REQUEST-vars that identifiy the current page for target redirection after login
 	 */

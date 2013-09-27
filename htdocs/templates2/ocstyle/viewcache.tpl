@@ -213,6 +213,11 @@
 				{if $cache.wpnc!=''}
 					<a href="http://www.navicache.com/cgi-bin/db/displaycache2.pl?CacheID={nccacheid wp=$cache.wpnc}" target="_blank">navicache.com</a>
 				{/if}
+				<br />
+			{/if}
+			{if $show_cachelab}
+				<img src="resource2/{$opt.template.style}/images/viewcache/16x16-cachelab.png" class="icon16" alt="" title="" align="middle" />
+				{t}Available at <a href="http://www.cachelab.net/" target="_blank">cachelab.net</a>{/t}
 			{/if}
 		</p>
 					</td>

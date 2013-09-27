@@ -14,8 +14,9 @@
 	require_once('./lib2/logic/coordinate.class.php');
 	require_once('./lib2/logic/useroptions.class.php');
 	require_once('./lib2/logic/logpics.inc.php');
-
-	$login->verify();
+	require_once('./lib2/logic/cachelab.inc.php');
+	
+    $login->verify();
 
 function getChildWaypoints($cacheid)
 {
@@ -345,6 +346,9 @@ function getChildWaypoints($cacheid)
 	$tpl->assign('shortlink_domain', $opt['logic']['shortlink_domain']);
 	$tpl->assign('listing_admin', $login->listingAdmin());
 
+	/* cachelab integration */
+	$tpl->assign('show_cachelab', cachelab_check($rCache['wpoc']) ? 1 : 0);
+	
 	// display the page
 	$tpl->display();
 ?>
